@@ -33,11 +33,11 @@ public static class PathUtils {
     public static Path ResolveDirectory(Path path) {
         if (!path.Exists()) return null;
 
-        return new Path(System.IO.Path.GetDirectoryName(path.ResolveLocation()));
+        return System.IO.Path.GetDirectoryName(path.ResolveLocation()).ToPath();
     }
 
     public static Path Combine(params string[] paths) {
-        return new Path(System.IO.Path.Combine(paths));
+        return System.IO.Path.Combine(paths).ToPath();
     }
     
     private static string _configPath(string path) {

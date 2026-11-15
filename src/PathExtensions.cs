@@ -8,10 +8,10 @@ public static class PathExtensions {
     public static PathType ResolveType(this Path value) {
         return PathUtils.ResolvePathType(value);
     }
-    public static string ResolveName(this Path value) {
+    public static string GetName(this Path value) {
         return PathUtils.ResolvePathName(value);
     }
-    public static string ResolveExtension(this Path value) {
+    public static string GetExtension(this Path value) {
         return PathUtils.ResolvePathExtension(value);
     }
     public static Path ResolveDirectory(this Path value) {

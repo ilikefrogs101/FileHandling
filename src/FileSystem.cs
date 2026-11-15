@@ -12,7 +12,7 @@ public static class FileSystem {
         string[] rawPaths = Directory.GetFileSystemEntries(path.ResolveLocation(), "*", option);
         
         Path[] paths = new Path[rawPaths.Length];
-        for (int i = 0; i < paths.Length; ++i) paths[i] = new Path(rawPaths[i]);
+        for (int i = 0; i < paths.Length; ++i) paths[i] = rawPaths[i].ToPath();
 
         if (type == PathType.BOTH) return paths.ToArray();
 
