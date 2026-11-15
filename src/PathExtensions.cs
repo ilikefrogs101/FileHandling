@@ -13,6 +13,9 @@ public static class PathExtensions {
     public static string ResolveExtension(this Path value) {
         return PathUtils.ResolvePathExtension(value);
     }
+    public static string ResolveDirectory(this Path value) {
+        return PathUtils.ResolveDirectory(value);
+    }
 
     public static bool Exists(this Path value) {
         return FileSystem.Exists(value);
