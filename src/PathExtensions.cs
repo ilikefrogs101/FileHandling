@@ -1,5 +1,6 @@
 using ilikefrogs101.FileHandling;
 
+namespace ilikefrogs101.FileHandling;
 public static class PathExtensions {
     public static string ResolveLocation(this Path value) {
         return PathUtils.ResolvePathLocation(value);
@@ -16,7 +17,6 @@ public static class PathExtensions {
     public static Path ResolveDirectory(this Path value) {
         return PathUtils.ResolveDirectory(value);
     }
-
     public static bool Exists(this Path value) {
         return FileSystem.Exists(value);
     }
