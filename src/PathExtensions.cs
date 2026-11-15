@@ -2,20 +2,20 @@ using ilikefrogs101.FileHandling;
 
 namespace ilikefrogs101.FileHandling;
 public static class PathExtensions {
-    public static string ResolveLocation(this Path value) {
-        return PathUtils.ResolvePathLocation(value);
+    public static string Resolve(this Path value) {
+        return Path.ResolveLocation(value);
     }
-    public static PathType ResolveType(this Path value) {
-        return PathUtils.ResolvePathType(value);
+    public static PathType GetPathType(this Path value) {
+        return Path.GetPathType(value);
     }
     public static string GetName(this Path value) {
-        return PathUtils.ResolvePathName(value);
+        return Path.GetFileName(value);
     }
     public static string GetExtension(this Path value) {
-        return PathUtils.ResolvePathExtension(value);
+        return Path.GetFileExtension(value);
     }
-    public static Path ResolveDirectory(this Path value) {
-        return PathUtils.ResolveDirectory(value);
+    public static Path GetDirectoryPath(this Path value) {
+        return Path.GetDirectoryPath(value);
     }
     public static bool Exists(this Path value) {
         return FileSystem.Exists(value);
