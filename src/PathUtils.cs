@@ -30,10 +30,10 @@ public static class PathUtils {
 
         return System.IO.Path.GetFileName(path.ResolveLocation());
     }
-    public static string ResolveDirectory(Path path) {
-        if (!path.Exists()) return string.Empty;
+    public static Path ResolveDirectory(Path path) {
+        if (!path.Exists()) return null;
 
-        return System.IO.Path.GetDirectoryName(path.ResolveLocation());
+        return new Path(System.IO.Path.GetDirectoryName(path.ResolveLocation()));
     }
 
     public static Path Combine(params string[] paths) {

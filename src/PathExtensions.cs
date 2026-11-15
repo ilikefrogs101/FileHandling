@@ -13,7 +13,7 @@ public static class PathExtensions {
     public static string ResolveExtension(this Path value) {
         return PathUtils.ResolvePathExtension(value);
     }
-    public static string ResolveDirectory(this Path value) {
+    public static Path ResolveDirectory(this Path value) {
         return PathUtils.ResolveDirectory(value);
     }
 
