@@ -43,7 +43,7 @@ public static class PathUtils {
     private static string _configPath(string path) {
         string directory = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            Assembly.GetExecutingAssembly().GetName().Name
+            Assembly.GetEntryAssembly().GetName().Name
         );
 
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
@@ -53,7 +53,7 @@ public static class PathUtils {
     private static string _dataPath(string path) {
         string directory = System.IO.Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            Assembly.GetExecutingAssembly().GetName().Name
+            Assembly.GetEntryAssembly().GetName().Name
         );
 
         if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
