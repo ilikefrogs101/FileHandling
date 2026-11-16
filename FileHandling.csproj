@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
 
     <PackageId>ilikefrogs101.FileHandling</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
