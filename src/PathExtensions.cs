@@ -5,17 +5,10 @@ using System.Reflection;
 
 namespace ilikefrogs101.FileHandling;
 public static class PathExtensions {
-    public static string ToString(this Path path) {
-        return path.origin switch {
-            PathOrigin.CONFIG => _configPath(path.location),
-            PathOrigin.DATA => _dataPath(path.location),
-            _ => path.location,
-        };
-    }
     public static PathType GetPathType(this Path path) {
         if (!path.Exists()) return PathType.INVALID;
 
-        FileAttributes attr = File.GetAttributes(ToString(path));
+        FileAttributes attr = File.GetAttributes(path.ToString());
         return attr.HasFlag(FileAttributes.Directory) ? PathType.DIRECTORY : PathType.FILE;
     }
     public static string GetFileName(this Path path) {
@@ -105,26 +98,5 @@ public static class PathExtensions {
     }
     public static void CreateDirectory(this Path path) {
         Directory.CreateDirectory(path.ToString());
-    }
-
-    private static string _configPath(string path) {
-        string directory = System.IO.Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            Assembly.GetEntryAssembly().GetName().Name
-        );
-
-        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
-
-        return System.IO.Path.Combine(directory, path);
-    }
-    private static string _dataPath(string path) {
-        string directory = System.IO.Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            Assembly.GetEntryAssembly().GetName().Name
-        );
-
-        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
-
-        return System.IO.Path.Combine(directory, path);
     }
 }
