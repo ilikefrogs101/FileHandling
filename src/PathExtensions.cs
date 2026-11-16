@@ -72,10 +72,10 @@ public static class PathExtensions {
 
         switch (from.GetPathType()) {
             case PathType.FILE:
-                File.Move(from.ToString(), to.ToString());
+                File.Move(from.Resolve(), to.Resolve());
                 return;
             case PathType.DIRECTORY:
-                Directory.Move(from.ToString(), to.ToString());
+                Directory.Move(from.Resolve(), to.Resolve());
                 return;
         }
     }
@@ -84,7 +84,7 @@ public static class PathExtensions {
 
         switch (from.GetPathType()) {
             case PathType.FILE:
-                File.Copy(from.ToString(), to.ToString());
+                File.Copy(from.Resolve(), to.Resolve());
                 return;
             case PathType.DIRECTORY:
                 // TODO: Create a function to copy directories
