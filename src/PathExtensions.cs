@@ -40,7 +40,7 @@ public static class PathExtensions {
         string resolvedPath = path.Resolve();
         return File.Exists(resolvedPath) || Directory.Exists(resolvedPath);
     }
-    public static Path[] ListIn(this Path path, bool recursive = true, PathType type = PathType.BOTH) {
+    public static Path[] List(this Path path, bool recursive = true, PathType type = PathType.BOTH) {
         SearchOption option = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
         string[] rawPaths = Directory.GetFileSystemEntries(path.Resolve(), "*", option);
         
