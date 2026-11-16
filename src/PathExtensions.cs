@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace ilikefrogs101.FileHandling;
 public static class PathExtensions {
-    public static string Resolve(this Path path) {
+    public static string ToString(this Path path) {
         return path.origin switch {
             PathOrigin.CONFIG => _configPath(path.location),
             PathOrigin.DATA => _dataPath(path.location),
@@ -15,34 +15,34 @@ public static class PathExtensions {
     public static PathType GetPathType(this Path path) {
         if (!path.Exists()) return PathType.INVALID;
 
-        FileAttributes attr = File.GetAttributes(Resolve(path));
+        FileAttributes attr = File.GetAttributes(ToString(path));
         return attr.HasFlag(FileAttributes.Directory) ? PathType.DIRECTORY : PathType.FILE;
     }
     public static string GetFileName(this Path path) {
         return GetPathType(path) switch
         {
-            PathType.FILE => System.IO.Path.GetFileNameWithoutExtension(path.Resolve()),
-            PathType.DIRECTORY => System.IO.Path.GetDirectoryName(path.Resolve()),
+            PathType.FILE => System.IO.Path.GetFileNameWithoutExtension(path.ToString()),
+            PathType.DIRECTORY => System.IO.Path.GetDirectoryName(path.ToString()),
             _ => string.Empty,
         };
     }
     public static string GetFileExtension(this Path path) {
         if (path.GetPathType() != PathType.FILE) return string.Empty;
 
-        return System.IO.Path.GetExtension(path.Resolve());
+        return System.IO.Path.GetExtension(path.ToString());
     }
     public static Path GetDirectoryPath(this Path path) {
         if (!path.Exists()) return null;
 
-        return System.IO.Path.GetDirectoryName(path.Resolve()).ToPath();
+        return System.IO.Path.GetDirectoryName(path.ToString()).ToPath();
     }
     public static bool Exists(this Path path) {
-        string resolvedPath = path.Resolve();
+        string resolvedPath = path.ToString();
         return File.Exists(resolvedPath) || Directory.Exists(resolvedPath);
     }
     public static Path[] ListIn(this Path path, bool recursive = true, PathType type = PathType.BOTH) {
         SearchOption option = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-        string[] rawPaths = Directory.GetFileSystemEntries(path.Resolve(), "*", option);
+        string[] rawPaths = Directory.GetFileSystemEntries(path.ToString(), "*", option);
         
         Path[] paths = new Path[rawPaths.Length];
         for (int i = 0; i < paths.Length; ++i) paths[i] = rawPaths[i].ToPath();
@@ -54,28 +54,28 @@ public static class PathExtensions {
     public static byte[] Read(this Path path) {
         if (!Exists(path)) return null;
 
-        return File.ReadAllBytes(path.Resolve());
+        return File.ReadAllBytes(path.ToString());
     }
     public static void Write(this Path path, byte[] bytes) {
-        File.WriteAllBytes(path.Resolve(), bytes);
+        File.WriteAllBytes(path.ToString(), bytes);
     }
     public static string ReadText(this Path path) {
         if (!Exists(path)) return null;
 
-        return File.ReadAllText(path.Resolve());
+        return File.ReadAllText(path.ToString());
     }
     public static void WriteText(this Path path, string text) {
-        File.WriteAllText(path.Resolve(), text);
+        File.WriteAllText(path.ToString(), text);
     }
     public static void Move(this Path from, Path to) {
         if (!from.Exists()) return;
 
         switch (from.GetPathType()) {
             case PathType.FILE:
-                File.Move(from.Resolve(), to.Resolve());
+                File.Move(from.ToString(), to.ToString());
                 return;
             case PathType.DIRECTORY:
-                Directory.Move(from.Resolve(), to.Resolve());
+                Directory.Move(from.ToString(), to.ToString());
                 return;
         }
     }
@@ -84,7 +84,7 @@ public static class PathExtensions {
 
         switch (from.GetPathType()) {
             case PathType.FILE:
-                File.Copy(from.Resolve(), to.Resolve());
+                File.Copy(from.ToString(), to.ToString());
                 return;
             case PathType.DIRECTORY:
                 // TODO: Create a function to copy directories
@@ -96,15 +96,15 @@ public static class PathExtensions {
 
         switch (path.GetPathType()) {
             case PathType.FILE:
-                File.Delete(path.Resolve());
+                File.Delete(path.ToString());
                 return;
             case PathType.DIRECTORY:
-                Directory.Delete(path.Resolve(), true);
+                Directory.Delete(path.ToString(), true);
                 return;
         }    
     }
     public static void CreateDirectory(this Path path) {
-        Directory.CreateDirectory(path.Resolve());
+        Directory.CreateDirectory(path.ToString());
     }
 
     private static string _configPath(string path) {
